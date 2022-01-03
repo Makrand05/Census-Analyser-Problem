@@ -15,7 +15,7 @@ public class CensusAnalyser {
     public int loadIndiaCensusData(String csvPath) throws CensusAnalyserException {
 
         try (Reader reader = Files.newBufferedReader(Paths.get(csvPath))) {
-            Iterator<IndiaCensusCSV> censusCSVIterator = new OpenCSV().getCSVIterator(reader, IndiaCensusCSV.class);
+            Iterator<IndiaCensusCSV> censusCSVIterator = OpenCSV.getCSVIterator(reader, IndiaCensusCSV.class);
         return    getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException("File not found exception", CensusAnalyserException.ExceptionType.FILE_NOT_FOUNT);
@@ -28,5 +28,23 @@ public class CensusAnalyser {
         return numberOfEntries;
     }
 
+    private <E>  Iterator getCSVIterator(Reader reader, Class csvClass) {
+        CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder(reader);
+        csvToBeanBuilder.withType(csvClass);
+        csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+        CsvToBean<E> csvToBean = csvToBeanBuilder.build();
+        return csvToBean.iterator();
 
+    }
+
+    public int loadIndiaStateCode(String csvPath) throws CensusAnalyserException {
+
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvPath))) {
+            Iterator<IndiaStateCode> censusCSVIterator = getCSVIterator(reader, IndiaCensusCSV.class);
+            return    getCount(censusCSVIterator);
+        } catch (IOException e) {
+            throw new CensusAnalyserException("File not found exception", CensusAnalyserException.ExceptionType.FILE_NOT_FOUNT);
+        }
+
+    }
 }

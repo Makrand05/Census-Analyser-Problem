@@ -8,7 +8,8 @@ import org.testng.Assert;
 public class CensusAnalyseTest {
 
     private static final String INDIA_CENSUS_CSV_PATH="C:\\Users\\MS\\IdeaProjects\\CensusAnalyzer\\src\\main\\resources\\IndiaStateCensusData.csv";
-
+    private  static final String INDIA_STATE_CODE ="C:\\Users\\MS\\IdeaProjects\\CensusAnalyzer\\src\\main\\resources\\IndiaStateCode.csv";
+    //Use case 1
 //    Given the States Census CSV file, Check to ensure the Number  of Record matches
     @Test
     public void givenIndianCensusCSVFile_whenLoad_shouldReturnCorrectRecordCase1() {
@@ -21,7 +22,7 @@ public class CensusAnalyseTest {
             e.printStackTrace();
         }
     }
-
+    //Use case 2
     //Given the State Census CSV File if incorrect Returns a custom Exception
     @Test
     public void givenIncorrectIndianCensusCSVFile_whenLoad_shouldReturnCorrectRecordCase2(){
@@ -35,7 +36,7 @@ public class CensusAnalyseTest {
             System.out.println(e.getMessage());
         }
     }
-
+    //Use case 3
     //Given the State Census CSV File when correct but type incorrect Returns a custom Exception
     @Test
     public void givenIndianCensusCSVFile_whenLoad_shouldReturnIncorrectRecordCase3() throws CensusAnalyserException {
@@ -47,6 +48,7 @@ public class CensusAnalyseTest {
             System.out.println("Case 3 : Incorrect entry count Exception : "+e.getMessage());
         }
     }
+    //Use Case 4
     //Given the State Census CSV File when correct but delimiter incorrect Returns a custom Exception
     @Test
     public void givenIndianCensusCSVFile_whenLoad_shouldReturnIncorrectRecordCase4(){
@@ -63,5 +65,60 @@ public class CensusAnalyseTest {
         //Given the State Census CSV File when correct but csv header incorrect Returns a custom Exception
 
     }
+    //Use case 1
+     //Given the States Census CSV file, Check to ensure the Number of Record matches
+    @Test
+    public void givenIndianStateCodeCSVFile_whenLoad_shouldReturnCorrectRecord() {
+        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        try{
+            int numberOfRecord=censusAnalyser.loadIndiaStateCode(INDIA_STATE_CODE);
+            Assert.assertEquals(37,numberOfRecord);
 
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Use case 2
+    //Given the State Census CSV File if incorrect Returns a custom Exception
+    @Test
+    public void givenIncorrectIndianStateCodeCSVFile_whenLoad_shouldReturnIncorrectRecord(){
+        String filePath="C:\\Users\\MS\\IdeaProjects\\CensusAnalyzer\\src\\main\\resources\\State.csv";
+        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        try{
+            int numberOfRecord=censusAnalyser.loadIndiaCensusData(filePath);
+            Assert.assertEquals(37,numberOfRecord);
+        } catch (CensusAnalyserException e) {
+            System.out.print("Case 2 : ");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Use case 3
+    //Given the State Census CSV File when correct but type incorrect Returns a custom Exception
+    @Test
+    public void givenIndianStateCodeCSVFile_whenLoad_shouldReturnIncorrectRecord() throws CensusAnalyserException {
+        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        try{
+            int numberOfRecord=censusAnalyser.loadIndiaCensusData(INDIA_STATE_CODE);
+            Assert.assertEquals(30,numberOfRecord);
+        } catch (AssertionError e) {
+            System.out.println("Case 3 : Incorrect entry count Exception : "+e.getMessage());
+        }
+    }
+    //Use Case 4
+    //Given the State Census CSV File when correct but delimiter incorrect Returns a custom Exception
+    @Test
+    public void givenIndianStateCodeCSVFile_whenLoad_shouldReturnDelimiterIncorrectRecord() {
+
+        String PDF_FILE = "C:\\Users\\MS\\IdeaProjects\\CensusAnalyzer\\src\\main\\resources\\IndiaStateCode.pdf";
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            int numberOfRecord = censusAnalyser.loadIndiaCensusData(PDF_FILE);
+            Assert.assertEquals(29, numberOfRecord);
+        } catch (CensusAnalyserException e) {
+            System.out.print("Case 4 : ");
+            System.out.println(e.getMessage());
+        }
+    }
 }

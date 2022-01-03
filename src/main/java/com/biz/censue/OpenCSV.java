@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 public class OpenCSV {
 
-    <E> Iterator getCSVIterator(Reader reader, Class csvClass) {
+    static <E> Iterator getCSVIterator(Reader reader, Class csvClass) {
         CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder(reader);
         csvToBeanBuilder.withType(csvClass);
         csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
