@@ -21,7 +21,6 @@ public class CensusAnalyser {
             throw new CensusAnalyserException("File not found exception", CensusAnalyserException.ExceptionType.FILE_NOT_FOUNT);
         }
     }
-
     private <E> int getCount(Iterator<E> censusCSVIterator) {
         Iterable<E> csvIterable = () -> censusCSVIterator;
         int numberOfEntries = (int) StreamSupport.stream(csvIterable.spliterator(), true).count();
@@ -34,7 +33,6 @@ public class CensusAnalyser {
         csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
         CsvToBean<E> csvToBean = csvToBeanBuilder.build();
         return csvToBean.iterator();
-
     }
 
     public int loadIndiaStateCode(String csvPath) throws CensusAnalyserException {
