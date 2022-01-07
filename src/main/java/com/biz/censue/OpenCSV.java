@@ -13,6 +13,8 @@ public class OpenCSV {
         csvToBeanBuilder.withType(csvClass);
         csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
         CsvToBean<E> csvToBean = csvToBeanBuilder.build();
-        return csvToBean.iterator();
+
+            return csvToBean.iterator();
+
     }
 }

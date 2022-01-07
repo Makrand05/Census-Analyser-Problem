@@ -15,11 +15,12 @@ public class CensusAnalyser {
     public int loadIndiaCensusData(String csvPath) throws CensusAnalyserException {
 
         try (Reader reader = Files.newBufferedReader(Paths.get(csvPath))) {
-            Iterator<IndiaCensusCSV> censusCSVIterator = OpenCSV.getCSVIterator(reader, IndiaCensusCSV.class);
+            Iterator<IndiaCensusCSV> censusCSVIterator = getCSVIterator(reader, IndiaCensusCSV.class);
         return    getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException("File not found exception", CensusAnalyserException.ExceptionType.FILE_NOT_FOUNT);
         }
+
     }
     private <E> int getCount(Iterator<E> censusCSVIterator) {
         Iterable<E> csvIterable = () -> censusCSVIterator;
@@ -43,6 +44,5 @@ public class CensusAnalyser {
         } catch (IOException e) {
             throw new CensusAnalyserException("File not found exception", CensusAnalyserException.ExceptionType.FILE_NOT_FOUNT);
         }
-
     }
 }

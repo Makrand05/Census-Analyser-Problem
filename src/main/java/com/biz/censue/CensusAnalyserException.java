@@ -19,9 +19,10 @@ public class CensusAnalyserException extends Exception {
         this.message = message;
     }
 
-    enum ExceptionType {
-        CENSUS_FILE_PROBLEM,FILE_NOT_FOUNT
-
+    public enum ExceptionType {
+        CENSUS_FILE_PROBLEM,
+        INCORRECT_COUNT,
+        FILE_NOT_FOUNT, DELIMITER_ERROR,HEADER_MISSING
     }
 
     public CensusAnalyserException(String message, ExceptionType type) {
